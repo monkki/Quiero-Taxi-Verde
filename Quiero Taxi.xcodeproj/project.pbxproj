@@ -12,6 +12,16 @@
 		5CE43D4C1BF1264200C6CF5D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CE43D4A1BF1264200C6CF5D /* Main.storyboard */; };
 		5CE43D4E1BF1264200C6CF5D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5CE43D4D1BF1264200C6CF5D /* Assets.xcassets */; };
 		5CE43D511BF1264200C6CF5D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5CE43D4F1BF1264200C6CF5D /* LaunchScreen.storyboard */; };
+		5CE43D5A1BF1288C00C6CF5D /* backgroundVerde.png in Resources */ = {isa = PBXBuildFile; fileRef = 5CE43D591BF1288C00C6CF5D /* backgroundVerde.png */; };
+		5CE43D5C1BF135C600C6CF5D /* RegistrarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D5B1BF135C600C6CF5D /* RegistrarViewController.swift */; };
+		5CE43D681BF1A04B00C6CF5D /* SWRevealViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D671BF1A04B00C6CF5D /* SWRevealViewController.m */; };
+		5CE43D6A1BF1A11A00C6CF5D /* MenuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D691BF1A11A00C6CF5D /* MenuController.swift */; };
+		5CE43D6C1BF1A24700C6CF5D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D6B1BF1A24700C6CF5D /* MapViewController.swift */; };
+		5CE43D6E1BF1B98900C6CF5D /* HistorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D6D1BF1B98900C6CF5D /* HistorialViewController.swift */; };
+		5CE43D701BF1BB0F00C6CF5D /* FavoritosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D6F1BF1BB0F00C6CF5D /* FavoritosViewController.swift */; };
+		5CE43D721BF1BC4300C6CF5D /* LigasDeInteresViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D711BF1BC4300C6CF5D /* LigasDeInteresViewController.swift */; };
+		5CE43D741BF1BD7900C6CF5D /* MisDatosViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D731BF1BD7900C6CF5D /* MisDatosViewController.swift */; };
+		5CE43D761BF1BE7100C6CF5D /* AyudaViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5CE43D751BF1BE7100C6CF5D /* AyudaViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +32,18 @@
 		5CE43D4D1BF1264200C6CF5D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		5CE43D501BF1264200C6CF5D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5CE43D521BF1264200C6CF5D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		5CE43D591BF1288C00C6CF5D /* backgroundVerde.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = backgroundVerde.png; sourceTree = "<group>"; };
+		5CE43D5B1BF135C600C6CF5D /* RegistrarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RegistrarViewController.swift; sourceTree = "<group>"; };
+		5CE43D651BF1A04A00C6CF5D /* Quiero Taxi-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Quiero Taxi-Bridging-Header.h"; sourceTree = "<group>"; };
+		5CE43D661BF1A04B00C6CF5D /* SWRevealViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SWRevealViewController.h; sourceTree = "<group>"; };
+		5CE43D671BF1A04B00C6CF5D /* SWRevealViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SWRevealViewController.m; sourceTree = "<group>"; };
+		5CE43D691BF1A11A00C6CF5D /* MenuController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MenuController.swift; sourceTree = "<group>"; };
+		5CE43D6B1BF1A24700C6CF5D /* MapViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		5CE43D6D1BF1B98900C6CF5D /* HistorialViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HistorialViewController.swift; sourceTree = "<group>"; };
+		5CE43D6F1BF1BB0F00C6CF5D /* FavoritosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritosViewController.swift; sourceTree = "<group>"; };
+		5CE43D711BF1BC4300C6CF5D /* LigasDeInteresViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LigasDeInteresViewController.swift; sourceTree = "<group>"; };
+		5CE43D731BF1BD7900C6CF5D /* MisDatosViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MisDatosViewController.swift; sourceTree = "<group>"; };
+		5CE43D751BF1BE7100C6CF5D /* AyudaViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AyudaViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,14 +76,42 @@
 		5CE43D451BF1264200C6CF5D /* Quiero Taxi */ = {
 			isa = PBXGroup;
 			children = (
+				5CE43D641BF1A03E00C6CF5D /* SWRevealViewController */,
+				5CE43D581BF1287E00C6CF5D /* Imagenes */,
 				5CE43D461BF1264200C6CF5D /* AppDelegate.swift */,
 				5CE43D481BF1264200C6CF5D /* ViewController.swift */,
+				5CE43D5B1BF135C600C6CF5D /* RegistrarViewController.swift */,
 				5CE43D4A1BF1264200C6CF5D /* Main.storyboard */,
+				5CE43D691BF1A11A00C6CF5D /* MenuController.swift */,
+				5CE43D6B1BF1A24700C6CF5D /* MapViewController.swift */,
+				5CE43D6D1BF1B98900C6CF5D /* HistorialViewController.swift */,
+				5CE43D6F1BF1BB0F00C6CF5D /* FavoritosViewController.swift */,
+				5CE43D711BF1BC4300C6CF5D /* LigasDeInteresViewController.swift */,
+				5CE43D731BF1BD7900C6CF5D /* MisDatosViewController.swift */,
+				5CE43D751BF1BE7100C6CF5D /* AyudaViewController.swift */,
 				5CE43D4D1BF1264200C6CF5D /* Assets.xcassets */,
 				5CE43D4F1BF1264200C6CF5D /* LaunchScreen.storyboard */,
 				5CE43D521BF1264200C6CF5D /* Info.plist */,
 			);
 			path = "Quiero Taxi";
+			sourceTree = "<group>";
+		};
+		5CE43D581BF1287E00C6CF5D /* Imagenes */ = {
+			isa = PBXGroup;
+			children = (
+				5CE43D591BF1288C00C6CF5D /* backgroundVerde.png */,
+			);
+			name = Imagenes;
+			sourceTree = "<group>";
+		};
+		5CE43D641BF1A03E00C6CF5D /* SWRevealViewController */ = {
+			isa = PBXGroup;
+			children = (
+				5CE43D661BF1A04B00C6CF5D /* SWRevealViewController.h */,
+				5CE43D671BF1A04B00C6CF5D /* SWRevealViewController.m */,
+				5CE43D651BF1A04A00C6CF5D /* Quiero Taxi-Bridging-Header.h */,
+			);
+			name = SWRevealViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -96,6 +146,7 @@
 				TargetAttributes = {
 					5CE43D421BF1264100C6CF5D = {
 						CreatedOnToolsVersion = 7.1;
+						DevelopmentTeam = 57GB7ANC7L;
 					};
 				};
 			};
@@ -122,6 +173,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE43D5A1BF1288C00C6CF5D /* backgroundVerde.png in Resources */,
 				5CE43D511BF1264200C6CF5D /* LaunchScreen.storyboard in Resources */,
 				5CE43D4E1BF1264200C6CF5D /* Assets.xcassets in Resources */,
 				5CE43D4C1BF1264200C6CF5D /* Main.storyboard in Resources */,
@@ -135,8 +187,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5CE43D6A1BF1A11A00C6CF5D /* MenuController.swift in Sources */,
+				5CE43D761BF1BE7100C6CF5D /* AyudaViewController.swift in Sources */,
+				5CE43D6C1BF1A24700C6CF5D /* MapViewController.swift in Sources */,
 				5CE43D491BF1264200C6CF5D /* ViewController.swift in Sources */,
+				5CE43D5C1BF135C600C6CF5D /* RegistrarViewController.swift in Sources */,
+				5CE43D701BF1BB0F00C6CF5D /* FavoritosViewController.swift in Sources */,
 				5CE43D471BF1264200C6CF5D /* AppDelegate.swift in Sources */,
+				5CE43D741BF1BD7900C6CF5D /* MisDatosViewController.swift in Sources */,
+				5CE43D721BF1BC4300C6CF5D /* LigasDeInteresViewController.swift in Sources */,
+				5CE43D681BF1A04B00C6CF5D /* SWRevealViewController.m in Sources */,
+				5CE43D6E1BF1B98900C6CF5D /* HistorialViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -249,10 +310,18 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Quiero Taxi/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.appsmx.Quiero-Taxi";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dctimx.quierotaxi-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Quiero Taxi/Quiero Taxi-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -260,10 +329,17 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = "Quiero Taxi/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.appsmx.Quiero-Taxi";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.dctimx.quierotaxi-swift";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Quiero Taxi/Quiero Taxi-Bridging-Header.h";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -286,6 +362,7 @@
 				5CE43D571BF1264200C6CF5D /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
