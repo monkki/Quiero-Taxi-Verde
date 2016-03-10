@@ -1,15 +1,15 @@
 //
-//  FavoritosViewController.swift
+//  FavoritosViewController2.swift
 //  Quiero Taxi
 //
-//  Created by Roberto Gutierrez on 09/11/15.
+//  Created by Doctor on 12/1/15.
 //  Copyright © 2015 Roberto Gutierrez. All rights reserved.
 //
 
 import UIKit
 
-class FavoritosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class FavoritosViewController2: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var tabla: UITableView!
     
@@ -24,7 +24,7 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if revealViewController() != nil {
             
             menuButton.target = revealViewController()
@@ -45,15 +45,17 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
         // Imagen encabezado
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         imageView.contentMode = .ScaleAspectFit
-        let image = UIImage(named: "quieroTaxiEncabezado")
+        let image = UIImage(named: "logo-encabezado")
         imageView.image = image
         navigationItem.titleView = imageView
         navigationItem.titleView!.sizeThatFits(CGSize(width: 220, height: 65))
-
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        
         getFavoritos()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -132,14 +134,13 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
                                 self.calleArray.append(calle)
                                 self.numeroArray.append(numero)
                                 self.referenciasArray.append(referencia)
-
                         
                             }
                     
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
                                 self.tabla.reloadData()
- 
+                        
                                 if #available(iOS 8.0, *) {
                             
                                     let progrees = self.progressHUD as! ProgressHUD
@@ -148,22 +149,21 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
                                 }
                         
                             })
-                        
                         }
                     
                     } else if(aux_exito == "0") {
                     
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                        
+                            
                             self.mostraMSJ("En este momento no tienes favoritos")
-                            
-                            if #available(iOS 8.0, *) {
                                 
-                                let progrees = self.progressHUD as! ProgressHUD
-                                progrees.hide()
-                                
-                            }
-                            
+                                if #available(iOS 8.0, *) {
+                                    
+                                    let progrees = self.progressHUD as! ProgressHUD
+                                    progrees.hide()
+                                    
+                                }
+
                         })
                     
                     }
@@ -189,6 +189,7 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
     
+    
     func mostraMSJ(msj: String){
         if #available(iOS 8.0, *) {
             let alertView_usuario_incorrecto = UIAlertController(title: "Quiero Taxi Cancún", message: msj, preferredStyle: .Alert)
@@ -203,17 +204,16 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
         
     }
 
-
     
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

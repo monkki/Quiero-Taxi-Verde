@@ -1,18 +1,20 @@
 //
-//  MisDatosViewController.swift
+//  MisDatosViewController2.swift
 //  Quiero Taxi
 //
-//  Created by Roberto Gutierrez on 09/11/15.
+//  Created by Doctor on 12/1/15.
 //  Copyright © 2015 Roberto Gutierrez. All rights reserved.
 //
 
 import UIKit
 
-class MisDatosViewController: UIViewController, UITextFieldDelegate {
+class MisDatosViewController2: UIViewController, UITextFieldDelegate {
+
+    @IBOutlet var menuButton: UIBarButtonItem!
+    
     
     
     @IBOutlet var fotoUsuario: UIImageView!
-    
     @IBOutlet var nombreTextfield: UITextField!
     @IBOutlet var celularTextfield: UITextField!
     @IBOutlet var correoElectronicoTextfield: UITextField!
@@ -37,7 +39,10 @@ class MisDatosViewController: UIViewController, UITextFieldDelegate {
         let loginManager = FBSDKLoginManager()
         loginManager.logOut()
         
-        self.performSegueWithIdentifier("logoutSegue", sender: self)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateInitialViewController()
+        presentViewController(vc!, animated: true, completion: nil)
+        
     }
     
     @IBAction func regresarBoton(sender: AnyObject) {
@@ -45,12 +50,10 @@ class MisDatosViewController: UIViewController, UITextFieldDelegate {
         self.performSegueWithIdentifier("principalSegue", sender: self)
     }
     
-
-    @IBOutlet var menuButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if revealViewController() != nil {
             menuButton.target = revealViewController()
             menuButton.action = "revealToggle:"
@@ -78,10 +81,13 @@ class MisDatosViewController: UIViewController, UITextFieldDelegate {
         // Imagen encabezado
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         imageView.contentMode = .ScaleAspectFit
-        let image = UIImage(named: "quieroTaxiEncabezado")
+        let image = UIImage(named: "logo-encabezado")
         imageView.image = image
         navigationItem.titleView = imageView
         navigationItem.titleView!.sizeThatFits(CGSize(width: 220, height: 65))
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        
         
         //Imagen circular
         fotoUsuario.layer.borderWidth = 2.0
@@ -89,7 +95,7 @@ class MisDatosViewController: UIViewController, UITextFieldDelegate {
         fotoUsuario.layer.borderColor = UIColor.whiteColor().CGColor
         fotoUsuario.layer.cornerRadius = fotoUsuario.frame.size.width/2
         fotoUsuario.clipsToBounds = true
-        
+
         
         //Imagen Usuario
         if let imagenUsuario = imagenFacebook {
@@ -98,7 +104,7 @@ class MisDatosViewController: UIViewController, UITextFieldDelegate {
 
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -114,15 +120,15 @@ class MisDatosViewController: UIViewController, UITextFieldDelegate {
         view.endEditing(true)
     }
     
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

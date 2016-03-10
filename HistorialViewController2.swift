@@ -1,30 +1,34 @@
 //
-//  FavoritosViewController.swift
+//  HistorialViewController2.swift
 //  Quiero Taxi
 //
-//  Created by Roberto Gutierrez on 09/11/15.
+//  Created by Doctor on 12/1/15.
 //  Copyright © 2015 Roberto Gutierrez. All rights reserved.
 //
 
 import UIKit
 
-class FavoritosViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+class HistorialViewController2: UIViewController, UITableViewDataSource, UITableViewDelegate {
+    
+    // OUTLETS
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var tabla: UITableView!
     
     var progressHUD: UIView!
     
-    var telefonoUsuario = NSUserDefaults.standardUserDefaults().objectForKey("telefono") as! String
-    
     // ARRAYS
     var calleArray: [String] = []
+    var fechaArray: [String] = []
     var numeroArray: [String] = []
     var referenciasArray: [String] = []
+    var placasArray: [String] = []
+    
+    var telefonoUsuario = NSUserDefaults.standardUserDefaults().objectForKey("telefono") as! String
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if revealViewController() != nil {
             
             menuButton.target = revealViewController()
@@ -37,7 +41,6 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
             // Loader
             progressHUD = ProgressHUD(text: "Cargando")
             self.view.addSubview(progressHUD)
-            
         }
         
         tabla.delegate = self
@@ -45,15 +48,16 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
         // Imagen encabezado
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         imageView.contentMode = .ScaleAspectFit
-        let image = UIImage(named: "quieroTaxiEncabezado")
+        let image = UIImage(named: "logo-encabezado")
         imageView.image = image
         navigationItem.titleView = imageView
         navigationItem.titleView!.sizeThatFits(CGSize(width: 220, height: 65))
-
-        getFavoritos()
         
+        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        
+        getHistorial()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -67,13 +71,12 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
         return calleArray.count
     }
     
-    
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tabla.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath)
+        let cell = tabla.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! HistorialTableViewCell
         
-        cell.textLabel?.text = "Calle: \(calleArray[indexPath.row]) Numero: \(numeroArray[indexPath.row])"
-        cell.detailTextLabel?.text = "Referencia: \(referenciasArray[indexPath.row])"
-        cell.imageView?.image = UIImage(named: "logo_start")
+        cell.descripcionHistorial.text = calleArray[indexPath.row] + " Num: " + numeroArray[indexPath.row]
+        cell.fechaHistorial.text = fechaArray[indexPath.row]
+        
         return cell
     }
     
@@ -81,14 +84,15 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
         tabla.deselectRowAtIndexPath(indexPath, animated: true)
     }
     
-    func getFavoritos(){
+    
+    func getHistorial(){
         
         let customAllowedSet = NSCharacterSet.URLQueryAllowedCharacterSet()
         
         telefonoUsuario = telefonoUsuario.stringByAddingPercentEncodingWithAllowedCharacters(customAllowedSet)!
         
         let urlObj = Urls();
-        let urlString = urlObj.getFavoritos(telefonoUsuario)
+        let urlString = urlObj.getHistorial(telefonoUsuario)
         let url = NSURL(string: urlString)!
         let urlSession = NSURLSession.sharedSession()
         
@@ -126,44 +130,45 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
                             for datos in historial {
                         
                                 let calle = datos["calle"] as! String
+                                let fecha = datos["fecha"] as! String
                                 let numero = datos["numero"] as! String
                                 let referencia = datos["referencia"] as! String
+                                let placas = datos["placas"] as! String
                         
                                 self.calleArray.append(calle)
+                                self.fechaArray.append(fecha)
                                 self.numeroArray.append(numero)
                                 self.referenciasArray.append(referencia)
-
+                                self.placasArray.append(placas)
                         
                             }
                     
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
                                 self.tabla.reloadData()
- 
+                        
                                 if #available(iOS 8.0, *) {
                             
                                     let progrees = self.progressHUD as! ProgressHUD
                                     progrees.hide()
                             
                                 }
-                        
                             })
-                        
                         }
                     
                     } else if(aux_exito == "0") {
                     
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                         
-                            self.mostraMSJ("En este momento no tienes favoritos")
-                            
+                            self.mostraMSJ("No hay Historial")
+                        
                             if #available(iOS 8.0, *) {
-                                
+                            
                                 let progrees = self.progressHUD as! ProgressHUD
                                 progrees.hide()
-                                
-                            }
                             
+                            }
+
                         })
                     
                     }
@@ -202,18 +207,18 @@ class FavoritosViewController: UIViewController, UITableViewDataSource, UITableV
         }
         
     }
-
-
     
 
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

@@ -1,8 +1,8 @@
 //
-//  MapViewController.swift
+//  MapViewController2.swift
 //  Quiero Taxi
 //
-//  Created by Roberto Gutierrez on 09/11/15.
+//  Created by Doctor on 12/1/15.
 //  Copyright © 2015 Roberto Gutierrez. All rights reserved.
 //
 
@@ -10,9 +10,8 @@ import UIKit
 import GoogleMaps
 import CoreLocation
 
-
-class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
-
+class MapViewController2: UIViewController, CLLocationManagerDelegate, GMSMapViewDelegate, UITextFieldDelegate {
+    
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var mapView: GMSMapView!
     
@@ -92,8 +91,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     var deslizarAlMenuGesture : UIPanGestureRecognizer!
     
     
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -112,7 +109,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         
         deslizarAlMenuGesture.enabled = true
-        
+
         
         // Funcionalidad Localizacion
         locationManager = CLLocationManager()
@@ -126,7 +123,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         locationManager.startUpdatingLocation()
         
         comentariosTextfield.delegate = self
-    
+        
         if #available(iOS 8.0, *) {
             // Loader
             progressHUD = ProgressHUD(text: "Obteniendo ubicación")
@@ -137,17 +134,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         // Se agrega switch
         switchCambiar = UISwitch()
         switchCambiar.frame = CGRectMake(0, 0, 20, 20)
-        switchCambiar.addTarget(self, action: Selector("cambiarABlack"), forControlEvents: .TouchUpInside)
+        switchCambiar.addTarget(self, action: Selector("cambiarAVerde"), forControlEvents: .TouchUpInside)
         let item1 = UIBarButtonItem()
         item1.customView = switchCambiar
-        //switchCambiar.tintColor = UIColor(red:0.00, green:0.45, blue:0.30, alpha:1.0)
+        switchCambiar.tintColor = UIColor.lightGrayColor()
         switchCambiar.onTintColor = UIColor.lightGrayColor()
+        
         switchCambiar.enabled = true
-    
-        switchCambiar.setOn(false, animated: true)
+        
+        switchCambiar.setOn(true, animated: true)
         
         self.navigationItem.rightBarButtonItem = item1
-
+        
         
         // Variable para guardar Status
         statusDelServicio = NSUserDefaults.standardUserDefaults().objectForKey("statusDeServicio") as! String
@@ -170,14 +168,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         // Imagen encabezado
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         imageView.contentMode = .ScaleAspectFit
-        let image = UIImage(named: "quieroTaxiEncabezado")
+        let image = UIImage(named: "logo-encabezado")
         imageView.image = image
         navigationItem.titleView = imageView
         navigationItem.titleView!.sizeThatFits(CGSize(width: 220, height: 65))
         
+        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        
+        
         // BOTON PEDIR TAXI SE ENCUENTRA DESHABILITADO HASTA OBTENER LA DIRECCION VIA GEOCODER
         self.botonPedirTaxi.enabled = false
-
+        
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -210,16 +211,19 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
 
     
-    func cambiarABlack() {
+    // FUNCION DE SWITCH PARA CAMBIAR A QUIERO TAXI VERDE
+    
+    func cambiarAVerde() {
         
         print("Switch funciona")
-        let storyboard = UIStoryboard(name: "Main2", bundle: nil)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateInitialViewController()
         presentViewController(vc!, animated: true, completion: nil)
         
     }
     
-    // FUNCION CHECA EL ESTATUS DE SERVICIO
+    
+    // HILO PARA CHECAR EL ESTATUS DE PEDIDO
     
     func status(estatusPedido: Bool) {
         
@@ -232,15 +236,16 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 // Timers
                 
                 print("Timers activos")
-           
+                
                 self.timerChecarEstatus = NSTimer.scheduledTimerWithTimeInterval(2, target: self, selector: "checarEstatusTaxi", userInfo: nil, repeats: true) as NSTimer
-
+                
                 self.timerCancelar = NSTimer.scheduledTimerWithTimeInterval(70, target: self, selector: "cancelarPorSistema", userInfo: nil, repeats: false) as NSTimer
             }
             
         }
         
     }
+    
     
     // CANCELAR POR SISTEMA
     
@@ -280,7 +285,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     
                     let jsonResult = try NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers) as! NSMutableArray
                     
-                   // print(jsonResult[0])
+                    // print(jsonResult[0])
                     
                     let aux_exito: String! = jsonResult[0]["success"] as! NSString as String
                     
@@ -304,7 +309,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             self.idServicios = NSUserDefaults.standardUserDefaults().objectForKey("idServicio") as! String
                             self.categoria = NSUserDefaults.standardUserDefaults().objectForKey("categoria") as! String
                             self.idCarro = NSUserDefaults.standardUserDefaults().objectForKey("id_carro") as! String
-                           
+                            
                                 self.timerCancelar.invalidate()
                                 self.timerChecarEstatus.invalidate()
                                 self.checarStatusDeServicio(self.statusDelServicio)
@@ -319,8 +324,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     } else if(aux_exito == "1" && self.valorStatus == "1"){
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             
-                            print("Abordado")
-                            
                             UIApplication.sharedApplication().endIgnoringInteractionEvents()
                             
                             self.timerChecarEstatus.invalidate()
@@ -334,7 +337,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                                 self.checarStatusDeServicio(self.statusDelServicio)
                                 self.status(self.estatusPedido)
                             }
-
+                            
                             
                         })
                         
@@ -400,10 +403,10 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     
                     
                     if(aux_exito == "1" && estatus == "2" || estatus == "5" || estatus == "7"){
-                       
+                        
                         
                         print("Estatus ha cambiado")
-                                
+                        
                         self.cancelarPedido(self.idServicios, valor: estatus)
                         
                         
@@ -413,11 +416,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         
                         self.scheduleLocal(self, mensaje: "Taxista ha cancelado su solicitud")
                         self.valorStatus = "6"
-                        self.timerChecarEstatus.invalidate()
                         self.timerCancelar.invalidate()
+                        self.timerChecarEstatus.invalidate()
                         self.cancelarPedido(self.idServicios, valor: self.valorStatus)
                         
-
+                        
                         
                     } else if (aux_exito == "1" && estatus == "0") {
                         
@@ -451,7 +454,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             let marker = GMSMarker()
                             marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(self.latitudeDefaults)!, CLLocationDegrees(self.longitudeDefaults)!)
                             marker.title = "Ubicacion"
-                            marker.icon = UIImage(named: "point.png")
+                            marker.icon = UIImage(named: "ic_picker_qtb54")
                             //marker.draggable = true
                             marker.snippet = ""
                             marker.map = self.mapView
@@ -459,17 +462,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             self.getPosicionTaxista()
                             
                             if self.alertaMostrada == false {
+                                
                                 self.mostraMSJ("Su taxista va en camino")
                                 
                                 self.alertaMostrada = true
                                 self.vistaAnimacion.hidden = true
-                            
+                                
+                                
                             }
                             
                         }
                         
+                        
+                        
                     } else if (aux_exito == "1" && estatus == "4") {
-                    
+                        
                         
                         self.timerChecarEstatus.invalidate()
                         self.timerChecarEstatus.fire()
@@ -493,15 +500,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         
                         NSUserDefaults.standardUserDefaults().setObject("1", forKey: "statusDeServicio")
                         NSUserDefaults.standardUserDefaults().setObject(false, forKey: "estatusPedido")
-                 //       NSUserDefaults.standardUserDefaults().setObject("0", forKey: "idServicio")
+                        //       NSUserDefaults.standardUserDefaults().setObject("0", forKey: "idServicio")
                         NSUserDefaults.standardUserDefaults().synchronize()
                         self.statusDelServicio = NSUserDefaults.standardUserDefaults().objectForKey("statusDeServicio") as! String
                         self.estatusPedido = NSUserDefaults.standardUserDefaults().objectForKey("estatusPedido") as! Bool
                         self.idServicios = NSUserDefaults.standardUserDefaults().objectForKey("idServicio") as! String
                         // Metodo para cambiar de vista segun status de servicio
                         dispatch_async(dispatch_get_main_queue()) { () -> Void in
+                            
                             self.checarStatusDeServicio(self.statusDelServicio)
                             self.status(self.estatusPedido)
+                            
                         }
                         self.timerCancelar.invalidate()
                         self.timerChecarEstatus.invalidate()
@@ -521,6 +530,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     
                 }
                 
+                
             } catch {
                 
                 print(error)
@@ -532,12 +542,11 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         jsonQuery.resume()
         
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
     
     
     @IBAction func unwindToHomeScreen(segue:UIStoryboardSegue) {
@@ -568,7 +577,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(latitude, longitude)
         marker.title = "Ubicacion"
-        marker.icon = UIImage(named: "point.png")
+        marker.icon = UIImage(named: "ic_picker_qtb54")
         //marker.draggable = true
         marker.snippet = ""
         marker.map = mapView
@@ -645,7 +654,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     }
     
-    // MUESTRA ALERTA AL USUARIO
+    // FUNCION PARA MOSTRAR ALERTA AL USUARIO
     
     func mostraMSJ(msj: String){
         if #available(iOS 8.0, *) {
@@ -660,17 +669,17 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         }
         
     }
-
     
-
+    
+    
     
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "solicitarTaxiSegue" {
             
-            if let destinoVc:SolicitarTaxiViewController = segue.destinationViewController as? SolicitarTaxiViewController {
+            if let destinoVc:SolicitarTaxiViewController2 = segue.destinationViewController as? SolicitarTaxiViewController2 {
                 destinoVc.direccion = direccion
                 destinoVc.colonia = colonia
                 destinoVc.latitudeRecibida = String(latitude)
@@ -680,6 +689,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             
         }
     }
+    
+    // MUESTRA VENTANA DE CALIFICACION
     
     func muestraVentanaCalificacion() {
         
@@ -692,6 +703,8 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             }, completion: nil)
     }
     
+     // OCULTA VENTANA DE CALIFICACION
+    
     func ocultarVentanaCalificacion() {
         
         let scale = CGAffineTransformMakeScale(0.0, 0.0)
@@ -699,7 +712,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         vistaCalificar.transform = CGAffineTransformConcat(scale, translate)
         
     }
-
+    
+    
+     // METODO PARA CAMBIAR LA VISTA SEGUN EL ESTADO DEL SERVICIO
     
     func checarStatusDeServicio(numeroDeStatus: String) {
         
@@ -711,9 +726,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             ciudadLabel.hidden = false
             imagenLocalizacion.hidden = false
             encabezadoVerde.hidden = false
-            encabezadoVerde.backgroundColor = UIColor(red:0.00, green:0.45, blue:0.30, alpha:0.7)
+            encabezadoVerde.backgroundColor = UIColor.darkGrayColor()
             vistaVerdeAbajo.hidden = false
-            vistaVerdeAbajo.backgroundColor = UIColor(red:0.00, green:0.45, blue:0.30, alpha:0.7)
+            vistaVerdeAbajo.backgroundColor = UIColor.darkGrayColor()
             botonPedirTaxi.hidden = false
             botonHistorial.hidden = false
             botonUbicacion.hidden = false
@@ -740,7 +755,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             imagenLocalizacion.hidden = true
             encabezadoVerde.hidden = true
             vistaVerdeAbajo.hidden = false
-            vistaVerdeAbajo.backgroundColor = UIColor.blackColor()
+            vistaVerdeAbajo.backgroundColor = UIColor.darkGrayColor()
             botonPedirTaxi.hidden = true
             botonHistorial.hidden = true
             botonUbicacion.hidden = true
@@ -763,9 +778,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             ciudadLabel.hidden = true
             imagenLocalizacion.hidden = true
             encabezadoVerde.hidden = false
-            encabezadoVerde.backgroundColor = UIColor.blackColor()
+            encabezadoVerde.backgroundColor = UIColor.darkGrayColor()
             vistaVerdeAbajo.hidden = false
-            vistaVerdeAbajo.backgroundColor = UIColor.blackColor()
+            vistaVerdeAbajo.backgroundColor = UIColor.darkGrayColor()
             botonPedirTaxi.hidden = true
             botonHistorial.hidden = true
             botonUbicacion.hidden = true
@@ -784,7 +799,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                 notificacionEnCaminoRecibida = true
             }
             
-
+            
         case "4":
             // Status ha llegado
             
@@ -792,9 +807,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             ciudadLabel.hidden = true
             imagenLocalizacion.hidden = true
             encabezadoVerde.hidden = false
-            encabezadoVerde.backgroundColor = UIColor.blackColor()
+            encabezadoVerde.backgroundColor = UIColor.darkGrayColor()
             vistaVerdeAbajo.hidden = false
-            vistaVerdeAbajo.backgroundColor = UIColor.blackColor()
+            vistaVerdeAbajo.backgroundColor = UIColor.darkGrayColor()
             botonPedirTaxi.hidden = true
             botonHistorial.hidden = true
             botonUbicacion.hidden = true
@@ -820,9 +835,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             ciudadLabel.hidden = true
             imagenLocalizacion.hidden = true
             encabezadoVerde.hidden = false
-            encabezadoVerde.backgroundColor = UIColor.blackColor()
+            encabezadoVerde.backgroundColor = UIColor.darkGrayColor()
             vistaVerdeAbajo.hidden = false
-            vistaVerdeAbajo.backgroundColor = UIColor.blackColor()
+            vistaVerdeAbajo.backgroundColor = UIColor.darkGrayColor()
             botonPedirTaxi.hidden = true
             botonHistorial.hidden = true
             botonUbicacion.hidden = true
@@ -836,9 +851,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
             cancelarBoton.hidden = false
             tiempoLabel.hidden = false
             abordarBoton.hidden = false
-
+            
             muestraVentanaCalificacion()
-
+            
         default:
             break
         }
@@ -931,7 +946,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         } else if(aux_exito == "0") {
                         
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                            
+                                
                                 //Ha surguido un errror
                             
                             })
@@ -945,6 +960,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         })
                         
                     }
+
                     
                 } catch {
                     
@@ -1048,22 +1064,21 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             dispatch_async(dispatch_get_main_queue(), { () -> Void in
                             
                                 self.camera = GMSCameraPosition.cameraWithLatitude(self.latitude,
-                                longitude: self.longitude, zoom: 14)
-                                
+                                longitude: self.longitude, zoom: 13)
                             
                                 let markerTaxista = GMSMarker()
                                 markerTaxista.position = CLLocationCoordinate2DMake(CLLocationDegrees(latitudTaxista)!, CLLocationDegrees(longitudeTaxista)!)
                                 markerTaxista.title = "Ubicacion Taxista"
-                                markerTaxista.icon = UIImage(named: "taxi_small")
+                                markerTaxista.icon = UIImage(named: "ic_taxi_qtb54")
                                 //marker.draggable = true
                                 markerTaxista.snippet = ""
                                 markerTaxista.map = self.mapView
                                 self.mapView.camera = self.camera
                             
                             })
-
+                        
                         }
-                    
+
                     
                     } else if(aux_exito == "0") {
                     
@@ -1080,6 +1095,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     })
                     
                 }
+
                 
             } catch {
                 
@@ -1159,7 +1175,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                         
                             self.datosTaxista.text = "Placas: " + placas + " \n Tel: " + telefono
                             
-                            
                             let ubicacionCliente = CLLocationCoordinate2DMake(self.latitude, self.longitude)
                             let ubicacionTaxista = CLLocationCoordinate2DMake(CLLocationDegrees(lat)!, CLLocationDegrees(lon)!)
                             let bounds = GMSCoordinateBounds(coordinate: ubicacionCliente , coordinate: ubicacionTaxista)
@@ -1168,7 +1183,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                             let marker = GMSMarker()
                             marker.position = CLLocationCoordinate2DMake(CLLocationDegrees(lat)!, CLLocationDegrees(lon)!)
                             marker.title = "Taxista"
-                            marker.icon = UIImage(named: "taxi_small")
+                            marker.icon = UIImage(named: "ic_taxi_qtb54")
                             //marker.draggable = true
                             marker.snippet = ""
                             marker.map = self.mapView
@@ -1179,7 +1194,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                                 // CONVERTIR IMAGEN
                                 let decodedData = NSData(base64EncodedString: imagen, options: NSDataBase64DecodingOptions(rawValue: 0))
                                 let decodedimage = UIImage(data: decodedData!)
-                            
+                        
                                 if let decodedImagen = decodedimage {
                                     self.fotoTaxista.image = decodedImagen
                                 }
@@ -1197,7 +1212,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     } else if(aux_exito == "0") {
                     
                         dispatch_async(dispatch_get_main_queue(), { () -> Void in
-                    
+                        
                         })
                     
                     }
@@ -1209,7 +1224,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     })
                     
                 }
-                
+
                 
             } catch {
                 
@@ -1222,7 +1237,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         jsonQuery.resume()
         
     }
-
+    
     
     // METODO PARA CALIFICAR A TAXISTA
     
@@ -1306,6 +1321,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
                     })
                     
                 }
+
                 
             } catch {
                 
@@ -1320,7 +1336,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
     }
     
     
-    /// FUNCIONES DE BOTONES
+    
+    //////// FUNCION DE BOTONES
+    
     
     @IBAction func enviarCalificacion(sender: AnyObject) {
         
@@ -1360,12 +1378,12 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         let marker = GMSMarker()
         marker.position = CLLocationCoordinate2DMake(latitude!, longitude!)
         marker.title = "Ubicacion"
-        marker.icon = UIImage(named: "point.png")
+        marker.icon = UIImage(named: "ic_picker_qtb54")
         //marker.draggable = true
         marker.snippet = ""
         marker.map = mapView
         mapView.camera = camera
-        
+    
     }
     
     @IBAction func llamar(sender: AnyObject) {
@@ -1391,4 +1409,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate, GMSMapView
         
     }
 
+    
+    
 }

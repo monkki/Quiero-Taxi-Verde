@@ -1,24 +1,24 @@
 //
-//  AyudaViewController.swift
+//  AyudaViewController2.swift
 //  Quiero Taxi
 //
-//  Created by Roberto Gutierrez on 09/11/15.
+//  Created by Doctor on 12/1/15.
 //  Copyright © 2015 Roberto Gutierrez. All rights reserved.
 //
 
 import UIKit
 
-class AyudaViewController: UIViewController, UIPageViewControllerDataSource {
-    
-    var pageViewController: UIPageViewController?
-    var pageImages: [String] = ["ayuda1.png", "ayuda2.png"]
-    var currentIndex: Int = 0
+class AyudaViewController2: UIViewController, UIPageViewControllerDataSource {
 
+    var pageViewController: UIPageViewController?
+    var pageImages: [String] = ["ayuda-paso1-2", "ayuda-paso3"]
+    var currentIndex: Int = 0
+    
     @IBOutlet var menuButton: UIBarButtonItem!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if revealViewController() != nil {
             menuButton.target = revealViewController()
             menuButton.action = "revealToggle:"
@@ -40,11 +40,13 @@ class AyudaViewController: UIViewController, UIPageViewControllerDataSource {
         // Imagen encabezado
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         imageView.contentMode = .ScaleAspectFit
-        let image = UIImage(named: "quieroTaxiEncabezado")
+        let image = UIImage(named: "logo-encabezado")
         imageView.image = image
         navigationItem.titleView = imageView
         navigationItem.titleView!.sizeThatFits(CGSize(width: 220, height: 65))
-
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        
     }
     
     func pageViewController(pageViewController: UIPageViewController, viewControllerBeforeViewController viewController: UIViewController) -> UIViewController? {
@@ -98,22 +100,22 @@ class AyudaViewController: UIViewController, UIPageViewControllerDataSource {
     func presentationIndexForPageViewController(pageViewController: UIPageViewController) -> Int {
         return 0
     }
-
-
+    
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
     
-
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }

@@ -1,21 +1,21 @@
 //
-//  LigasDeInteresViewController.swift
+//  LigasDeInteresViewController2.swift
 //  Quiero Taxi
 //
-//  Created by Roberto Gutierrez on 09/11/15.
+//  Created by Doctor on 12/1/15.
 //  Copyright © 2015 Roberto Gutierrez. All rights reserved.
 //
 
 import UIKit
 
-class LigasDeInteresViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+class LigasDeInteresViewController2: UIViewController, UITableViewDelegate, UITableViewDataSource {
+    
     @IBOutlet var menuButton: UIBarButtonItem!
     @IBOutlet var tabla: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         if revealViewController() != nil {
             
             menuButton.target = revealViewController()
@@ -29,13 +29,15 @@ class LigasDeInteresViewController: UIViewController, UITableViewDelegate, UITab
         // Imagen encabezado
         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 160, height: 40))
         imageView.contentMode = .ScaleAspectFit
-        let image = UIImage(named: "quieroTaxiEncabezado")
+        let image = UIImage(named: "logo-encabezado")
         imageView.image = image
         navigationItem.titleView = imageView
         navigationItem.titleView!.sizeThatFits(CGSize(width: 220, height: 65))
-
+        
+        self.navigationController?.navigationBar.barTintColor = UIColor.blackColor()
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -62,16 +64,16 @@ class LigasDeInteresViewController: UIViewController, UITableViewDelegate, UITab
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tabla.deselectRowAtIndexPath(indexPath, animated: true)
     }
-
-
+    
+    
     /*
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+    // Get the new view controller using segue.destinationViewController.
+    // Pass the selected object to the new view controller.
     }
     */
-
+    
 }
